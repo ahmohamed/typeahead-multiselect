@@ -1,17 +1,14 @@
 # Typeahead-multiselect: a tiny extension to twitter typeahead to allow multiple selections
-===========================================================================================
-
 
 Typeahead-multiselect extends the current functionality of [Twitter Typeahead](https://github.com/twitter/typeahead.js/) to allow multiple selections.
 
-
 ### Usage
 
-You can use Typeahead-multiselect using the same signature as Typeahead.
+You can use Typeahead-multiselect using the same signature as Typeahead. [See it live](http://codepen.io/ahmohamed/pen/JRkErJ)
 
 ```html
 <div id="typeaheadmulti">
-  <input class="typeahead" type="text" placeholder="States of USA">
+  <input class="typeahead" type="text" placeholder="Search Languages">
 </div>
 ```
 
