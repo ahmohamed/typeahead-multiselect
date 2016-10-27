@@ -2,6 +2,27 @@
 
 Typeahead-multiselect extends the current functionality of [Twitter Typeahead](https://github.com/twitter/typeahead.js/) to allow multiple selections.
 
+### Dependencies
+Typeahead-multiselect depends on both `jQuery` and `Typeahead.js`. Be sure to include them as follows:
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+<script src="typeahead-multiselect.min.js"></script>
+```
+
+To use bootstrap styles, include [`typeaheadjs.css`](https://github.com/bassjobsen/typeahead.js-bootstrap-css).
+
+```html
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" media="screen">
+<link rel="stylesheet" href="typeaheadjs.css" type="text/css" media="screen">
+```
+or use the default styling:
+
+```html
+<link rel="stylesheet" href="typeahead-multiselect.min.css" type="text/css" media="screen">
+```
+
 ### Usage
 
 You can use Typeahead-multiselect using the same signature as Typeahead. [See it live](http://codepen.io/ahmohamed/pen/JRkErJ)
@@ -30,6 +51,7 @@ $('#typeaheadmulti .typeahead').typeaheadmulti({
   source: language
 });
 ```
+
 ### Options
 All typeahead.js options are valid. In addition:
 
