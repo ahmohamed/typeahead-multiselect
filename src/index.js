@@ -1,5 +1,7 @@
 (function( $ ) {
   var addSelected = function($selections, sel, display){
+    $selections.find('.empty-selection').remove();
+    
     var text = display ? sel[display] : sel;
     
     // TODO: allow templates to be rendered.
@@ -8,7 +10,15 @@
       .appendTo( $selections )
       .find(".js-remove").bind("click", function(){
         this.parentNode.remove();
+        if ($selections.find('li').length === 0) {
+          addEmpty($selections);
+        }
       });
+  };
+  var addEmpty = function ($selections) {
+    // TODO: allow templates to be rendered.
+    $('<li class="empty-selection">' + 'No selections.' + '</li>')
+      .appendTo( $selections );
   };
 
 
@@ -17,14 +27,19 @@
       var display = dataset ? dataset.display : undefined;
       this.each(function(){
         var $el = $(this);
-
-        var $selections = $('<ul>').addClass("ttmulti-selections")
-          .insertBefore($el);
-      
+        var selections_id = Math.random().toString(36).slice(2);
+        $el.data('selectionsContainer', selections_id);
+        
+        var $selections = options.selectionsContainer ||
+          ($('<ul>').addClass("ttmulti-selections").insertBefore($el));
+        
+        $selections.attr('id', selections_id);
+        addEmpty($selections);
+        
         $el.typeahead(options, dataset)
           .bind('typeahead:select', function(ev, selection) {
             addSelected($selections, selection, display);
-            $el.typeahead('val', "");
+            $el.typeahead('val', '');
           });  
       });
     
@@ -32,8 +47,9 @@
 
     function getVal(newVal){
       // TODO: Check if the val is set. typeaheadmulti('val', someval)
+      
       return(
-        this.first().parent().prev(".ttmulti-selections")
+        $('#' + this.data('selectionsContainer'))
           .find("li").map(function(){
             return $(this).data("__ttmulti_data__");
           })
