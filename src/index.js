@@ -10,14 +10,24 @@
       .appendTo( $selections )
       .find(".js-remove").bind("click", function(){
         this.parentNode.remove();
-        if ($selections.find('li').length === 0) {
+        if ($selections.find('li:not(.empty-selection)').length === 0) {
           $selections.find('.empty-selection').show();
         }
       });
   };
-  var addEmpty = function ($selections) {
+  var addEmpty = function ($selections, empty_selection) {
+    var text;
+    if (!empty_selection) {
+      text = 'No selections.';
+    } else {
+      if (typeof empty_selection === 'function') {
+        text = empty_selection();
+      } else {
+        text = '' + empty_selection;
+      }
+    }
     // TODO: allow templates to be rendered.
-    $('<li class="empty-selection">' + 'No selections.' + '</li>')
+    $('<li class="empty-selection">' + text + '</li>')
       .appendTo( $selections );
   };
 
@@ -34,7 +44,7 @@
           ($('<ul>').addClass("ttmulti-selections").insertBefore($el));
         
         $selections.attr('id', selections_id);
-        addEmpty($selections);
+        addEmpty($selections, dataset.templates.emptySelection);
         
         $el.typeahead(options, dataset)
           .bind('typeahead:select', function(ev, selection) {
