@@ -2,7 +2,8 @@
   var addSelected = function($selections, sel, display){
     $selections.find('.empty-selection').hide();
     
-    var text = display ? sel[display] : sel;
+    var text;
+    text = display ? sel[display] : sel;
     
     // TODO: allow templates to be rendered.
     $('<li>' + text + '<i class="js-remove">✖</i></li>')
@@ -40,8 +41,13 @@
         var selections_id = Math.random().toString(36).slice(2);
         $el.data('selectionsContainer', selections_id);
         
-        var $selections = options.selectionsContainer ||
-          ($('<ul>').addClass("ttmulti-selections").insertBefore($el));
+        var $selections = $('<ul>').addClass("ttmulti-selections");
+        if (options.selectionsContainer) {
+          console.log($(options.selectionsContainer));
+          $(options.selectionsContainer).append($selections);
+        } else{
+          $selections.insertBefore($el);
+        }
         
         $selections.attr('id', selections_id);
         addEmpty($selections, dataset.templates.emptySelection);
@@ -57,9 +63,9 @@
 
     function getVal(newVal){
       // TODO: Check if the val is set. typeaheadmulti('val', someval)
-      
+      $input = this.filter('.tt-input');
       return(
-        $('#' + this.data('selectionsContainer'))
+        $('#' + $input.data('selectionsContainer'))
           .find("li").map(function(){
             return $(this).data("__ttmulti_data__");
           })
