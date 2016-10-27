@@ -1,6 +1,6 @@
 {
   "name": "typeahead-multiselect",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Tiny extension to twitter typeahead to allow multiple selections",
   "main": "index.js",
   "scripts": {
