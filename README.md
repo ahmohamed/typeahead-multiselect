@@ -30,9 +30,23 @@ $('#typeaheadmulti .typeahead').typeaheadmulti({
   source: language
 });
 ```
+### Options
+All typeahead.js options are valid. In addition:
+
+*selectionsContainer*: A Jquery-valid selector for the container where the selections will be added.
+
+#### Dataset templates:
+Templates should either be a string of a function that returns a string to be rendered. Handlebar temaplates are not supported.
+
+*emptySelection*: Will be used to fill the container when no selections are selected.
+*selection*: Should be a function that takes the selected object and returns a html string.
+
+### Events
+
+`selectionAdded` and `selectionRemoved` are fired after a selection is added or removed from the selection container.
 
 ### Styling
-You can use the styles accompanied with the package `typeahead-multiselect.min`, which gives similar look and feel as Twitter typeahead. You can also change the style of the selection container using the class `"ttmulti-selections"`.
+You can use the styles accompanied with the package `typeahead-multiselect.css.min`, which provides styling for the suggestion container. Selection container and selections are classed as `list-group` and `list-group-item` for bootrap compatiblity. If you want to use Boostrap for styling, make sure to include [`typeaheadjs.css`](https://github.com/bassjobsen/typeahead.js-bootstrap-css).
 
 ### Limitations
 These are the current limitations for typeaheadmulti. All these limitations
@@ -40,7 +54,6 @@ can be easily supported (the souce code is marked with TODOs).
 Contributions through pull requests all very welcome.
  
  - No support for multiple datasets.
- - No support for selection templates (to control how selected options are rendered).
  - Setting the selections programmatically by `$.typehead('val', someVal)`
  
 ### License
