@@ -1,6 +1,6 @@
 (function( $ ) {
   var addSelected = function($selections, sel, display){
-    $selections.find('.empty-selection').remove();
+    $selections.find('.empty-selection').hide();
     
     var text = display ? sel[display] : sel;
     
@@ -11,7 +11,7 @@
       .find(".js-remove").bind("click", function(){
         this.parentNode.remove();
         if ($selections.find('li').length === 0) {
-          addEmpty($selections);
+          $selections.find('.empty-selection').show();
         }
       });
   };
