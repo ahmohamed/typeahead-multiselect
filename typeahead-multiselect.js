@@ -1,9 +1,13 @@
-(function( $ ) {
-  var addSelected = function($selections, sel, display){
+;(function( $ ) {
+  var addSelected = function($selections, sel, display, template){
     $selections.find('.empty-selection').hide();
     
     var text;
-    text = display ? sel[display] : sel;
+    if (template && typeof template === 'function') {
+      text = template(sel);
+    } else {
+      text = display ? sel[display] : sel;
+    }    
     
     // TODO: allow templates to be rendered.
     $('<li>' + text + '<i class="js-remove">✖</i></li>')
@@ -36,6 +40,8 @@
   $.fn.typeaheadmulti = function(options, dataset){
     function initialize(options, dataset){ //TODO: accept multiple datasets.
       var display = dataset ? dataset.display : undefined;
+      var templates = dataset.templates || {};
+      
       this.each(function(){
         var $el = $(this);
         var selections_id = Math.random().toString(36).slice(2);
@@ -50,11 +56,11 @@
         }
         
         $selections.attr('id', selections_id);
-        addEmpty($selections, dataset.templates.emptySelection);
+        addEmpty($selections, templates.emptySelection);
         
         $el.typeahead(options, dataset)
           .bind('typeahead:select', function(ev, selection) {
-            addSelected($selections, selection, display);
+            addSelected($selections, selection, display, templates.selection);
             $el.typeahead('val', '');
           });  
       });
