@@ -2,11 +2,11 @@ module.exports = function(grunt) {
   "use strict";
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
-    concat: {
+    browserify: {
       dist: {
         files: {
           "<%= pkg.name %>.js": ["src/index.js"]
-        }
+        },
       },
     },
     uglify: {
@@ -35,10 +35,10 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks("grunt-contrib-uglify");
-  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks("grunt-contrib-cssmin");
 
-  grunt.registerTask("dev", ["jshint", "concat"]);
+  grunt.registerTask("dev", ["jshint", "browserify"]);
   grunt.registerTask("default", ["dev", "uglify", "cssmin"]);
 };
